@@ -1,0 +1,32 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<div class="container py-5" xmlns:x-for="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+    <h2 class="mb-4">Todo List just Alpine</h2>
+    <div class="card">
+        <div x-data='{userInput: "", todos: []}'>
+            <div class="card-body">
+                <form class="d-flex mb-3">
+                    <input x-model="userInput" type="text" class="form-control me-2" placeholder="Add new task">
+                    <button
+                        type="submit" class="btn btn-primary"
+                        @click.prevent="if(userInput.length) todos.push({ name:userInput, completed:false }); userInput = ''">Add</button>
+                </form>
+                <template x-for="todo in todos">
+                     <div>
+                         <input type="checkbox">
+                          <span x-text="todo.name"></span>
+                          <button @click="todos = todos.filter((currentTodo)=> currentTodo != todo)" class="btn btn-danger btn-sm">X</button>
+                     </div>
+                 </template>
+                <button @click="todos = []" class="btn btn-danger">Clear All</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
